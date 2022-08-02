@@ -17,22 +17,22 @@ keys = [
 def main():
     profile = os.environ.get(AWS_PROFILE_ENV)
     if not profile:
-        print("{} is not set".format(AWS_PROFILE_ENV))
+        print(f"{AWS_PROFILE_ENV} is not set")
         sys.exit(1)
 
     config = configparser.ConfigParser()
     config.read([os.path.expanduser(CREDENTIALS_FILE)])
 
     if profile not in config.sections():
-        print("profile {} does not exist".format(profile))
+        print(f"profile {profile} does not exist")
         sys.exit(1)
 
     creds = config[profile]
 
     for k in keys:
-        print("export {}={}".format(k.upper(), creds[k]))
+        print(f"export {k.upper()}={creds[k]}")
 
-    print("export {}={}".format("AWS_DEFAULT_REGION", DEFAULT_REGION))
+    print(f"export AWS_DEFAULT_REGION={DEFAULT_REGION}")
 
 
 if __name__ == "__main__":
